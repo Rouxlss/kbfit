@@ -328,3 +328,9 @@ header ul a {
     width: 100%;
     cursor: pointer;
 }
+
+.steps-buttons {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}

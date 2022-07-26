@@ -97,6 +97,46 @@ export const WorkflowItemView = () => {
 
     return (
         <>
+            <div className="steps-buttons">
+                {savedStepsMode && (
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <p>
+                            Steps: {savedStepIndex} / {savedSteps.length}{" "}
+                        </p>
+                        <button
+                            className="btn btn-outline-dark"
+                            // type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target={savedSteps[savedStepIndex - 1]}
+                            aria-expanded="false"
+                            aria-controls={savedSteps[savedStepIndex - 1]}
+                            onClick={() => {
+                                savedStepIndex > 0
+                                    ? setSavedStepIndex(savedStepIndex - 1)
+                                    : null;
+                            }}
+                        >
+                            Back
+                        </button>
+                        <button
+                            className="btn btn-outline-dark"
+                            type="button"
+                            // disabled={savedStepIndex > savedSteps.length ? "true" : "false"}
+                            data-bs-toggle="collapse"
+                            data-bs-target={savedSteps[savedStepIndex]}
+                            aria-expanded="false"
+                            aria-controls={savedSteps[savedStepIndex]}
+                            onClick={() => {
+                                savedStepIndex < savedSteps.length
+                                    ? setSavedStepIndex(savedStepIndex + 1)
+                                    : setSavedStepIndex(savedStepIndex);
+                            }}
+                        >
+                            Next
+                        </button>
+                    </div>
+                )}
+            </div>
             {isRecording && (
                 <div className="recording-status">
                     Recording actions{" "}
@@ -170,7 +210,12 @@ export const WorkflowItemView = () => {
                                                             thread,
                                                             threadIndex
                                                         ) => (
-                                                            <div className="accordion-item" key={threadIndex}>
+                                                            <div
+                                                                className="accordion-item"
+                                                                key={
+                                                                    threadIndex
+                                                                }
+                                                            >
                                                                 <h2
                                                                     className="accordion-header"
                                                                     id={`headingThread${threadIndex}${solutionIndex}`}
@@ -379,50 +424,6 @@ export const WorkflowItemView = () => {
                             )}
                         </div>
                         <br />
-                        {savedStepsMode && (
-                            <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                              <p>Steps: {savedStepIndex} / {savedSteps.length} </p>
-                                <button
-                                    className="btn btn-outline-dark"
-                                    // type="button"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target={
-                                        savedSteps[savedStepIndex - 1]
-                                    }
-                                    aria-expanded="false"
-                                    aria-controls={
-                                        savedSteps[savedStepIndex - 1]
-                                    }
-                                    onClick={() => {
-                                        savedStepIndex > 0
-                                            ? setSavedStepIndex(
-                                                  savedStepIndex - 1
-                                              )
-                                            : null;
-                                    }}
-                                >
-                                    Back
-                                </button>
-                                <button
-                                    className="btn btn-outline-dark"
-                                    type="button"
-                                    // disabled={savedStepIndex > savedSteps.length ? "true" : "false"}
-                                    data-bs-toggle="collapse"
-                                    data-bs-target={savedSteps[savedStepIndex]}
-                                    aria-expanded="false"
-                                    aria-controls={savedSteps[savedStepIndex]}
-                                    onClick={() => {
-                                        savedStepIndex < savedSteps.length
-                                            ? setSavedStepIndex(
-                                                  savedStepIndex + 1
-                                              )
-                                            : setSavedStepIndex(savedStepIndex);
-                                    }}
-                                >
-                                    Next
-                                </button>
-                            </div>
-                        )}
                     </div>
                 </div>
             )) || (
