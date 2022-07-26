@@ -1,0 +1,330 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+}
+
+/*styles-header*/
+header {
+    width: 100%;
+    height: 79px;
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo p {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.header__logo a {
+    text-decoration: none;
+    color: #505050;
+}
+
+a {
+    text-decoration: none;
+    color: #505050;
+}
+
+header ul {
+    display: flex;
+    list-style: none;
+    gap: 55px;
+    flex-wrap: wrap;
+} 
+
+li {
+  list-style: none;
+}
+
+header ul a {
+    text-decoration: none;
+    color: #505050;
+    padding: 10px;
+    font-weight: 600;
+}
+
+.header__lastbtn {
+    border-radius: 20px;
+    background-color: #505050;
+    color: rgb(255, 255, 255);
+}
+
+.subheader {
+    width: 100%;
+    height: 79px;
+    text-align: center;
+    font-size: 24px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 15px;
+}
+
+/*end styles-header*/
+
+/*styles-element*/
+.element {
+    width: 100%;
+    height: 40px;
+}
+
+.element__txt {
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.element__txt a {
+    text-decoration: none;
+    color: #505050;
+    font-weight: 600;
+}
+
+.element__txt p {
+    border-bottom: solid #505050;
+    padding-bottom: 10px;
+    width: 90px;
+}
+
+/*end styles-element*/
+
+/*styles content-primary*/
+.content-primary {
+    width: 100%;
+    height: 30vh;
+    display: grid;
+    place-items: center;
+    margin-bottom: 20px;
+}
+
+.content-primary__img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35));
+}
+
+.content-primary__p {
+    font-size: 35px;
+    font-weight: 300;
+    color: #505050;
+    border-bottom: 2px solid #505050;
+}
+
+/*end styles content-primary*/
+
+/* styles search */
+.search {
+    width: 500px;
+    height: 50px;
+    /* display: grid;
+    place-items: center; */
+    position: relative;
+    margin: auto;
+    z-index: 1000;
+}
+
+.search__bar_container {
+    height: 100%;
+    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    border-radius: 30px 30px 30px 30px;
+    border: 1px solid rgb(236, 236, 236);
+}
+
+.search__bar {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    padding-left: 40px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search__bar__input {
+    width: 80%;
+    height: 60%;
+    font-size: 16px;
+    border: none;
+    color: rgb(59, 59, 59);
+}
+
+.search__bar__input:focus {
+    outline: none;
+}
+
+.search__bar__icon {
+    height: 100%;
+    width: 60px;
+    background-color: #505050;
+    border-radius: 0px 25px;
+    color: #ffffff;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.search__bar__icon:hover {
+    background-color: #6d6c6c;
+}
+
+.search__bar__icon i {
+    font-size: 24px;
+    text-align: center;
+}
+
+.search__results {
+    position: absolute;
+    width: 100%;
+    background: rgb(255, 255, 255);
+    border-radius: 10px;
+    border: 1px solid rgb(224, 224, 224);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 12px 17px 0px rgba(166,162,162,0.34);
+}
+
+.search__results li {
+    padding: 0;
+    height: 50px;
+    width: 100%;
+    line-height: 50px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    cursor: pointer;
+}
+
+
+/* end styles search  */
+/*styles content-secondary*/
+.content-secondary{
+    width: 100%;
+    height: 230px;
+    background-color: #243038;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.content-secondary__div-1{
+    width: calc(100%/2);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    place-content: center;
+}
+.content-secondary__div-1 p{
+    color: #ffffff;
+    font-size: 23px;
+}
+.content-secondary__div-2{
+    width: calc(100%/2);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.content-secondary__div-2 a{
+    text-decoration: none;
+    background-color: #ffffff;
+    padding: 20px 50px 20px 50px;
+    color: #243038;
+    font-size: 17px;
+}
+.table{
+    width: 100%;
+    display: flex;
+    min-height: 50vh;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    justify-content: center;
+}
+
+.table-2{
+    width: 700px;
+}
+ 
+.footer{
+    width: 100%;
+    height: 140px;
+    background-color: #353B48;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.btn-success {
+    background: purple;
+    border: 1px solid rgb(143, 8, 143);
+}
+
+.btn-success:focus {
+    background: rgb(207, 15, 207);
+    border: 4px solid rgb(247, 108, 247);
+}
+
+/* .btn-success:hover {
+    background: rgb(207, 15, 207);
+    border: 1px solid rgb(143, 8, 143);
+} */
+
+.content {
+    position: relative;
+}
+
+.recording-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 180px;
+    background: rgb(209, 27, 27);
+    color: white;
+    border: 1px solid red;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.saving-status {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 130px;
+    color: rgb(99, 98, 98);
+    border: 1px solid rgb(97, 93, 93);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.link-copy {
+    border: 1px solid rgba(179, 79, 79, 0.705);
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
