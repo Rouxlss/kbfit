@@ -79,7 +79,7 @@ export const WorkflowView = () => {
                 {searchWorkflows.length > 0 && (
                     <ul className="search__results">
                         {searchWorkflows.map((workflow, index) => (
-                            <li>
+                            <li key={index}>
                                 <Link
                                     key={workflow._id}
                                     to={`workflow/${workflow._id}`}

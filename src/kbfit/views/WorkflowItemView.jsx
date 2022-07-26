@@ -170,7 +170,7 @@ export const WorkflowItemView = () => {
                                                             thread,
                                                             threadIndex
                                                         ) => (
-                                                            <div className="accordion-item">
+                                                            <div className="accordion-item" key={threadIndex}>
                                                                 <h2
                                                                     className="accordion-header"
                                                                     id={`headingThread${threadIndex}${solutionIndex}`}
