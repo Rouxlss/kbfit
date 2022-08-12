@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { KBFITapi } from "../../api";
 import { useEffect } from "react";
@@ -46,8 +46,7 @@ export const WorkflowItemView = () => {
         setWorkflowId(id);
 
         const isRecordingId = queryString.parse(window.location.search);
-        console.log(isRecordingId);
-
+        
         if (isRecordingId.recordingId) {
             setrecordingId(isRecordingId.recordingId);
             setSavedStepsMode(true);

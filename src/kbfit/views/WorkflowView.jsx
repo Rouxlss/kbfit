@@ -4,6 +4,7 @@ import Logo from "./../../img/Logo.png";
 import { Link } from "react-router-dom";
 
 export const WorkflowView = () => {
+    
     const [searchWorkflows, setSearchWorkflows] = useState([]);
     const [popularWorkflows, setpopularWorkflows] = useState([]);
 
@@ -19,7 +20,6 @@ export const WorkflowView = () => {
             );
 
             setSearchWorkflows(data.workflows);
-            console.log(data.workflows);
         };
 
         if (searchTerm.length > 0) {
@@ -42,7 +42,6 @@ export const WorkflowView = () => {
             );
 
             setpopularWorkflows(data.workflows);
-            console.log(data.workflows);
         };
 
         getPopularWorkflows();
@@ -121,7 +120,12 @@ export const WorkflowView = () => {
                                     <div className="accordion-body">
                                         {workflow.workflow_description}
                                         <hr />
-                                        <Link to={`workflow/${workflow._id}`} className="btn btn-info">Go to this workflow</Link>
+                                        <Link
+                                            to={`/workflow/${workflow._id}`}
+                                            className="btn btn-info"
+                                        >
+                                            Go to this workflow
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

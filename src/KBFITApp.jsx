@@ -1,11 +1,11 @@
-import React from 'react'
-import { AppRouter } from './router/AppRouter'
-import { AppTheme } from './theme'
+import React from "react";
+import { AppRouter } from "./router/AppRouter";
+import { UserProvider } from "./context/";
 
 export const KBFITApp = () => {
     return (
-        <AppTheme>
-            <AppRouter/>
-        </AppTheme>
-    )
-}
+        <UserProvider>
+            <AppRouter />
+        </UserProvider>
+    );
+};

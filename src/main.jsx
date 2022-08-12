@@ -5,9 +5,9 @@ import { BrowserRouter } from "react-router-dom";
 import { KBFITApp } from "./KBFITApp";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <BrowserRouter>
             <KBFITApp />
         </BrowserRouter>
-    </React.StrictMode>
+    // </React.StrictMode>
 );
