@@ -17,6 +17,7 @@ const USER_INITIAL_STATE = {
 const init = () => {
 
     const token = Cookies.get("accessToken");
+    KBFITapi.defaults.headers.common["Authorization"] = token;
     
     if (token) {
 
@@ -30,6 +31,8 @@ const init = () => {
             isLoading: false
         }
 
+    } else {
+        return USER_INITIAL_STATE;
     }
 
 }
@@ -54,6 +57,7 @@ export const UserProvider = ({ children }) => {
             const { data } = await KBFITapi.get("/auth/validate-token");
             const { token, user } = data;
             
+            KBFITapi.defaults.headers.common["Authorization"] = token;
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
             Cookies.set("accessToken", token);
             return true;
@@ -78,6 +82,8 @@ export const UserProvider = ({ children }) => {
             const data = await KBFITapi.post("/auth/login", { email, password });
             const {message, token, user} = data.data;
             Cookies.set("accessToken", token);
+
+            KBFITapi.defaults.headers.common["Authorization"] = token;
 
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
 
