@@ -17,10 +17,10 @@ const USER_INITIAL_STATE = {
 const init = async () => {
 
     const token = await Cookies.get("accessToken");
+    KBFITapi.defaults.headers.common["Authorization"] = token;
     
     if (token) {
         
-        KBFITapi.defaults.headers.common["Authorization"] = token;
         const tokenData = getToken(token);
         
         const { user } = tokenData;
