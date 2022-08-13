@@ -98,6 +98,8 @@ export const UserProvider = ({ children }) => {
 
             const { message } = error.response.data;
 
+            dispatch({ type: "ERROR" });
+
             toast.error(message, {
                 position: "top-right",
                 autoClose: 5000,

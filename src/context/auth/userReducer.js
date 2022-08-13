@@ -7,6 +7,11 @@ export const userReducer = (state, action) => {
                 ...state,
                 isLoading: true
             }
+        case 'ERROR':
+            return {
+                ...state,
+                isLoading: false,
+            }
         case '[Auth] - Login':
             return {
                 ...state,
