@@ -20,8 +20,6 @@ const init = () => {
     
     if (token) {
 
-        console.log("INITIALIZING USER PROVIDER");
-
         const tokenData = getToken(token);
         
         const { user } = tokenData;
