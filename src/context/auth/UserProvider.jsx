@@ -55,9 +55,9 @@ export const UserProvider = ({ children }) => {
 
         try {
             const { data } = await KBFITapi.get("/auth/validate-token");
-            const { token, user } = data;
-            
+            const { token, user } = await data;
             KBFITapi.defaults.headers.common["Authorization"] = token;
+            
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
             Cookies.set("accessToken", token);
             return true;
