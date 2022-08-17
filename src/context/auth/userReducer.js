@@ -11,7 +11,6 @@ export const userReducer = (state, action) => {
             return {
                 ...state,
                 isLoading: false,
-                token: undefined,
             }
         case '[Auth] - Login':
             return {
