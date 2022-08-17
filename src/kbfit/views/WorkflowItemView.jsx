@@ -13,7 +13,7 @@ export const WorkflowItemView = () => {
 
     const params = useParams();
 
-    const { isLoading } = useContext(UserContext);
+    const { isLoading, token } = useContext(UserContext);
 
     const [workflowId, setWorkflowId] = useState(null);
     const [workflow, setWorkflow] = useState(null);
@@ -38,8 +38,8 @@ export const WorkflowItemView = () => {
                 steps: userSelectionSteps,
             }, {
                 headers: {
-                    Authorization: `${Cookies.get("accessToken")}`
-                }
+                    Authorization: token,
+                },
             });
 
             setLink(window.location.href + "?recordingId=" + data.id);
@@ -71,7 +71,7 @@ export const WorkflowItemView = () => {
                         `/workflows/${workflowId}`,
                         {
                             headers: {
-                                Authorization: `${Cookies.get("accessToken")}`,
+                                Authorization: token,
                             },
                         }
                     );
@@ -96,8 +96,8 @@ export const WorkflowItemView = () => {
                     const { data } = await KBFITapi.get(
                         `/savedsteps/${recordingId}`, {
                             headers: {
-                                Authorization: `${Cookies.get("accessToken")}`
-                            }
+                                Authorization: token,
+                            },
                         }
                     );
                     setSavedSteps(data.savedSteps.steps);

@@ -9,11 +9,10 @@ import { useEffect } from "react";
 
 export const NavBar = () => {
 
-    const { logoutUser, isLoading, user } = useContext(UserContext);
+    const { logoutUser, isLoading, user, token } = useContext(UserContext);
     const navigate = useNavigate();
     
     const handleLogout = async () => {
-        const token = Cookies.get("accessToken");
         const isValidLogout = await logoutUser(token);
         isValidLogout && navigate("/auth/login");
     };

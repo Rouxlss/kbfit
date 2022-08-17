@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { KBFITapi } from "../../api";
 import Logo from "./../../img/Logo.png";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
+import { UserContext } from "../../context";
 
 export const WorkflowView = () => {
     
     const [searchWorkflows, setSearchWorkflows] = useState([]);
     const [popularWorkflows, setpopularWorkflows] = useState([]);
 
-    const [workflow, setWorkflow] = useState(null);
+    const { token } = useContext(UserContext);
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleSearch = (e) => setSearchTerm(e.target.value);
@@ -19,8 +20,8 @@ export const WorkflowView = () => {
             const { data } = await KBFITapi.get(
                 `/workflows?q=${searchTerm}&limit=5`, {
                     headers: {
-                        Authorization: `${Cookies.get("accessToken")}`
-                    }
+                        Authorization: token,
+                    },
                 }
             );
 
@@ -45,8 +46,8 @@ export const WorkflowView = () => {
             const { data } = await KBFITapi.get(
                 `/workflows?popular=true&limit=3`, {
                     headers: {
-                        Authorization: `${Cookies.get("accessToken")}`
-                    }
+                        Authorization: token,
+                    },
                 }
             );
 

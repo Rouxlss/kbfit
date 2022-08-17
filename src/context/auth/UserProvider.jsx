@@ -12,6 +12,7 @@ const USER_INITIAL_STATE = {
     isLoggedIn: false,
     user: undefined,
     isLoading: false,
+    token: undefined
 }
 
 const init = () => {
@@ -27,7 +28,8 @@ const init = () => {
         return {
             isLoggedIn: true,
             user,
-            isLoading: false
+            isLoading: false,
+            token
         }
 
     } else {
@@ -61,7 +63,7 @@ export const UserProvider = ({ children }) => {
             });
             const { token, user } = await data;
  
-            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
+            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
             Cookies.set("accessToken", token);
             return true;
 
@@ -86,7 +88,7 @@ export const UserProvider = ({ children }) => {
             
             const {message, token, user} = data.data;
             Cookies.set("accessToken", token);
-            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
+            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
 
             toast.success(message, {
                 position: "top-right",
