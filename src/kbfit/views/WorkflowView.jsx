@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { KBFITapi } from "../../api";
 import Logo from "./../../img/Logo.png";
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
 export const WorkflowView = () => {
     
@@ -16,7 +17,11 @@ export const WorkflowView = () => {
     useEffect(() => {
         const getWorkflows = async () => {
             const { data } = await KBFITapi.get(
-                `/workflows?q=${searchTerm}&limit=5`
+                `/workflows?q=${searchTerm}&limit=5`, {
+                    headers: {
+                        Authorization: `${Cookies.get("accessToken")}`
+                    }
+                }
             );
 
             setSearchWorkflows(data.workflows);
@@ -38,7 +43,11 @@ export const WorkflowView = () => {
     useEffect(() => {
         const getPopularWorkflows = async () => {
             const { data } = await KBFITapi.get(
-                `/workflows?popular=true&limit=3`
+                `/workflows?popular=true&limit=3`, {
+                    headers: {
+                        Authorization: `${Cookies.get("accessToken")}`
+                    }
+                }
             );
 
             setpopularWorkflows(data.workflows);
@@ -81,7 +90,7 @@ export const WorkflowView = () => {
                             <li key={index}>
                                 <Link
                                     key={workflow._id}
-                                    to={`workflow/${workflow._id}`}
+                                    to={`/workflow/${workflow._id}`}
                                 >
                                     {workflow.workflow_name}
                                 </Link>

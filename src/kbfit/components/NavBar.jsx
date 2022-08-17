@@ -4,14 +4,17 @@ import { UserContext } from "../../context/";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "./";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
 export const NavBar = () => {
 
     const { logoutUser, isLoading, user } = useContext(UserContext);
     const navigate = useNavigate();
-
+    
     const handleLogout = async () => {
-        const isValidLogout = await logoutUser();
+        const token = Cookies.get("accessToken");
+        const isValidLogout = await logoutUser(token);
         isValidLogout && navigate("/auth/login");
     };
 

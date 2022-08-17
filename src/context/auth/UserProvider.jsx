@@ -11,14 +11,13 @@ import { getToken } from "../../hooks/getToken";
 const USER_INITIAL_STATE = {
     isLoggedIn: false,
     user: undefined,
-    isLoading: false
+    isLoading: false,
 }
 
-const init = async () => {
+const init = () => {
 
-    const token = await Cookies.get("accessToken");
-    KBFITapi.defaults.headers.common["Authorization"] = token;
-    
+    const token = Cookies.get("accessToken");
+
     if (token) {
         
         const tokenData = getToken(token);
@@ -54,10 +53,14 @@ export const UserProvider = ({ children }) => {
         }
 
         try {
-            const { data } = await KBFITapi.get("/auth/validate-token");
+
+            const { data } = await KBFITapi.get("/auth/validate-token", {
+                headers: {
+                    Authorization: Cookies.get("accessToken")
+                }
+            });
             const { token, user } = await data;
-            KBFITapi.defaults.headers.common["Authorization"] = token;
-            
+ 
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
             Cookies.set("accessToken", token);
             return true;
@@ -80,11 +83,9 @@ export const UserProvider = ({ children }) => {
             dispatch({ type: "LOADING" });
 
             const data = await KBFITapi.post("/auth/login", { email, password });
+            
             const {message, token, user} = data.data;
             Cookies.set("accessToken", token);
-
-            KBFITapi.defaults.headers.common["Authorization"] = token;
-
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false } });
 
             toast.success(message, {
@@ -120,12 +121,14 @@ export const UserProvider = ({ children }) => {
         }
     }
 
-    const logoutUser = async () => {
+    const logoutUser = async (token) => {
 
         try {
 
             dispatch({ type: "LOADING" });
-            const data = await KBFITapi.post("/auth/logout");
+
+            await await KBFITapi.post("/auth/logout", {}, { headers: { Authorization: token } });
+
             Cookies.remove("accessToken");
             dispatch({ type: '[Auth] - Logout'});
 
@@ -133,6 +136,8 @@ export const UserProvider = ({ children }) => {
 
         } catch (error) {
             
+            dispatch({ type: "ERROR" });
+
             const { message } = error.response.data;
 
             toast.error(message, {

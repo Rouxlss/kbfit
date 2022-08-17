@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { KBFITapi } from "../../api";
 import { useEffect } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import queryString from "query-string";
+import Cookies from "js-cookie";
+import { Loading } from "../components";
+import { UserContext } from "../../context";
 
 export const WorkflowItemView = () => {
+
     const params = useParams();
+
+    const { isLoading } = useContext(UserContext);
 
     const [workflowId, setWorkflowId] = useState(null);
     const [workflow, setWorkflow] = useState(null);
@@ -30,6 +36,10 @@ export const WorkflowItemView = () => {
             const { data } = await KBFITapi.post(`/savedsteps`, {
                 workflow_id: workflowId,
                 steps: userSelectionSteps,
+            }, {
+                headers: {
+                    Authorization: `${Cookies.get("accessToken")}`
+                }
             });
 
             setLink(window.location.href + "?recordingId=" + data.id);
@@ -46,7 +56,7 @@ export const WorkflowItemView = () => {
         setWorkflowId(id);
 
         const isRecordingId = queryString.parse(window.location.search);
-        
+
         if (isRecordingId.recordingId) {
             setrecordingId(isRecordingId.recordingId);
             setSavedStepsMode(true);
@@ -58,7 +68,12 @@ export const WorkflowItemView = () => {
             const getWorkflow = async () => {
                 try {
                     const { data } = await KBFITapi.get(
-                        `/workflows/${workflowId}`
+                        `/workflows/${workflowId}`,
+                        {
+                            headers: {
+                                Authorization: `${Cookies.get("accessToken")}`,
+                            },
+                        }
                     );
                     console.log(data.workflow);
                     setWorkflow(data.workflow);
@@ -79,7 +94,11 @@ export const WorkflowItemView = () => {
             const getSteps = async () => {
                 try {
                     const { data } = await KBFITapi.get(
-                        `/savedsteps/${recordingId}`
+                        `/savedsteps/${recordingId}`, {
+                            headers: {
+                                Authorization: `${Cookies.get("accessToken")}`
+                            }
+                        }
                     );
                     setSavedSteps(data.savedSteps.steps);
                 } catch (error) {
@@ -425,42 +444,47 @@ export const WorkflowItemView = () => {
                         <br />
                     </div>
                 </div>
-            )) || (
-                <div className="table">
-                    <div className="table-2">
-                        <div className="card">
-                            <h5 className="card-title">
-                                Your recording is here:{" "}
-                            </h5>
-                            <h6 className="card-subtitle mb-2 text-muted">
-                                Copy the next link to access to the steps that
-                                you do to get your solution!
-                            </h6>
-                            <div className="card-body">
-                                <CopyToClipboard
-                                    text={link}
-                                    onCopy={() => {
-                                        setIsCopied(true);
-                                        setTimeout(() => {
-                                            setIsCopied(false);
-                                        }, 3000);
-                                    }}
-                                >
-                                    <div className="link-copy">
-                                        <span>{link}</span>
-                                    </div>
-                                </CopyToClipboard>
+            ))}
+            {
+                savedInfo &&
+                (
+                    <div className="table">
+                        <div className="table-2">
+                            <div className="card">
+                                <h5 className="card-title">
+                                    Your recording is here:{" "}
+                                </h5>
+                                <h6 className="card-subtitle mb-2 text-muted">
+                                    Copy the next link to access to the steps that
+                                    you do to get your solution!
+                                </h6>
+                                <div className="card-body">
+                                    <CopyToClipboard
+                                        text={link}
+                                        onCopy={() => {
+                                            setIsCopied(true);
+                                            setTimeout(() => {
+                                                setIsCopied(false);
+                                            }, 3000);
+                                        }}
+                                    >
+                                        <div className="link-copy">
+                                            <span>{link}</span>
+                                        </div>
+                                    </CopyToClipboard>
+                                </div>
                             </div>
+                            <br />
+                            {isCopied && (
+                                <div className="alert alert-success" role="alert">
+                                    Copied!
+                                </div>
+                            )}
                         </div>
-                        <br />
-                        {isCopied && (
-                            <div className="alert alert-success" role="alert">
-                                Copied!
-                            </div>
-                        )}
                     </div>
-                </div>
-            )}
+                )
+            }
+            { isLoading && <Loading /> }
             {error && (
                 <div className="alert alert-danger" role="alert">
                     {error.message}
