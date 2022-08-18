@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
             return {
                 isLoggedIn: true,
                 user,
-                isLoading: false,
+                isLoading: true,
                 token
             }
     
@@ -43,9 +43,10 @@ export const UserProvider = ({ children }) => {
     const navigate = useNavigate();
     const [userState, dispatch] = useReducer(userReducer, {}, init);
     
-    // useEffect(() => {
-    //     checkToken();
-    // }, []);
+    useEffect(() => {
+        // checkToken();
+        dispatch({ type: "ERROR" });
+    }, []);
 
     const checkToken = async () => {
 
