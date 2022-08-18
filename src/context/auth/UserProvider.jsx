@@ -58,9 +58,10 @@ export const UserProvider = ({ children }) => {
 
             const { data } = await KBFITapi.get("/auth/validate-token", {
                 headers: {
-                    Authorization: Cookies.get("accessToken")
+                    Authorization: userState.token
                 }
             });
+            console.log(data);
             const { token, user } = await data;
  
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
@@ -88,6 +89,7 @@ export const UserProvider = ({ children }) => {
             
             const {message, token, user} = data.data;
             Cookies.set("accessToken", token);
+            console.log(data);
             dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
 
             toast.success(message, {
