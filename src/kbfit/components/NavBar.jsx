@@ -13,6 +13,7 @@ export const NavBar = () => {
     const navigate = useNavigate();
     
     const handleLogout = async () => {
+        console.log("logout", token);
         const isValidLogout = await logoutUser(token);
         isValidLogout && navigate("/auth/login");
     };

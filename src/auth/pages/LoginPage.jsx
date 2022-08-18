@@ -19,7 +19,9 @@ export const LoginPage = () => {
     const onLogin = async (e) => {
         e.preventDefault();
         const isValidLogin = await loginUser({ email, password });
-        isValidLogin && navigate("/")
+        isValidLogin && setTimeout(() => {
+            navigate("/")
+        }, 2000);
         
     };
 

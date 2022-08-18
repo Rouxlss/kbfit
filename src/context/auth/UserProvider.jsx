@@ -15,37 +15,37 @@ const USER_INITIAL_STATE = {
     token: undefined
 }
 
-const init = () => {
-
-    const token = Cookies.get("accessToken");
-
-    if (token) {
-        
-        const tokenData = getToken(token);
-        
-        const { user } = tokenData;
-        
-        return {
-            isLoggedIn: true,
-            user,
-            isLoading: false,
-            token
-        }
-
-    } else {
-        return USER_INITIAL_STATE;
-    }
-
-}
-
 export const UserProvider = ({ children }) => {
+
+    const init = () => {
+
+        const token = Cookies.get("accessToken");
+    
+        if (token) {
+            
+            const tokenData = getToken(token);
+            
+            const { user } = tokenData;
+            
+            return {
+                isLoggedIn: true,
+                user,
+                isLoading: false,
+                token
+            }
+    
+        } else {
+            return USER_INITIAL_STATE;
+        }
+    
+    }
 
     const navigate = useNavigate();
     const [userState, dispatch] = useReducer(userReducer, {}, init);
     
-    useEffect(() => {
-        checkToken();
-    }, []);
+    // useEffect(() => {
+    //     checkToken();
+    // }, []);
 
     const checkToken = async () => {
 
@@ -58,14 +58,13 @@ export const UserProvider = ({ children }) => {
 
             const { data } = await KBFITapi.get("/auth/validate-token", {
                 headers: {
-                    Authorization: userState.token
+                    Authorization: Cookies.get("accessToken")
                 }
             });
-            console.log(data);
             const { token, user } = await data;
  
-            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
             Cookies.set("accessToken", token);
+            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
             return true;
 
         } catch (error) {
@@ -89,9 +88,7 @@ export const UserProvider = ({ children }) => {
             
             const {message, token, user} = data.data;
             Cookies.set("accessToken", token);
-            console.log(data);
-            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
-
+            
             toast.success(message, {
                 position: "top-right",
                 autoClose: 1500,
@@ -101,15 +98,14 @@ export const UserProvider = ({ children }) => {
                 draggable: true,
                 progress: undefined,
             });
-
+            
+            dispatch({ type: '[Auth] - Login', payload: { user, isLoading: false, token } });
 
             return true;
 
         } catch (error) {
 
             const { message } = error.response.data;
-
-            dispatch({ type: "ERROR" });
 
             toast.error(message, {
                 position: "top-right",
@@ -120,7 +116,8 @@ export const UserProvider = ({ children }) => {
                 draggable: true,
                 progress: undefined,
             });
-
+            
+            dispatch({ type: "ERROR" });
             return false;
         }
     }
@@ -135,15 +132,13 @@ export const UserProvider = ({ children }) => {
 
             Cookies.remove("accessToken");
             dispatch({ type: '[Auth] - Logout'});
-
             return true;
 
         } catch (error) {
             
-            dispatch({ type: "ERROR" });
-
+            
             const { message } = error.response.data;
-
+            
             toast.error(message, {
                 position: "top-right",
                 autoClose: 5000,
@@ -153,7 +148,8 @@ export const UserProvider = ({ children }) => {
                 draggable: true,
                 progress: undefined,
             });
-
+            
+            dispatch({ type: "ERROR" });
             return false;
 
         }
