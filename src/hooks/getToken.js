@@ -1,3 +1,4 @@
+
 export const getToken = (token) => {
     
     const base64Url = token.split(".")[1];

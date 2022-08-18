@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
             return {
                 isLoggedIn: true,
                 user,
-                isLoading: true,
+                isLoading: false,
                 token
             }
     

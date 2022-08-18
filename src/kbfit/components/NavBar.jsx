@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Loading } from "./";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
 
 export const NavBar = () => {
 
     const { logoutUser, isLoading, user, token } = useContext(UserContext);
+    const { role } = user;
     const navigate = useNavigate();
     
     const handleLogout = async () => {
@@ -43,6 +42,13 @@ export const NavBar = () => {
                         <a href="#">
                             <li>Troubleshoot</li>
                         </a>
+                        {
+                            role === "62fde1342751294454ebc13b" && (
+                                <a href="/admin">
+                                    <li>Admin</li>
+                                </a>
+                            )
+                        }
                         <a onClick={handleLogout} className="header__lastbtn">
                             <li>Logout</li>
                         </a>
