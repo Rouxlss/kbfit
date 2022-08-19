@@ -11,9 +11,10 @@
     width: 100vw;
     height: 100vh;
     background-color: #0000009d;
-    position: absolute;
+    position: fixed;
     z-index: 10000;
     display: flex;
+    top: 0;
     justify-content: center;
     align-items: center;
 }
