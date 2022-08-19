@@ -94,10 +94,39 @@ header ul a {
     font-weight: 600;
 }
 
+header ul a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #505050;
+    transition: width .3s;
+}
+
+header ul a:hover::after {
+    width: 100%;
+    transition: width .3s;
+}
+
+header ul a:hover {
+    color: #505050;
+}
+
 .header__lastbtn {
     border-radius: 20px;
     background-color: #505050;
     color: rgb(255, 255, 255);
+    transition: all 0.3s ease 0s;
+}
+
+.header__lastbtn::after {
+    display: none;
+}
+
+
+.header__lastbtn:hover {
+    color: rgb(255, 255, 255);
+    background-color: #670505;
 }
 
 .subheader {
